@@ -1,4 +1,4 @@
-var gameModule = (function() {
+var gameModule = (function () {
 
     "use strict";
 
@@ -8,9 +8,8 @@ var gameModule = (function() {
             ballY,
             ballR,
             scores;
-
-        var colors = ['#ff0000', '#0000ff', 'yellow'];
-        var length = colors.length;
+            colors = ['#ff0000', '#0000ff', 'yellow'];
+            length = colors.length;
 
 
         function touchEvent(evt) {
@@ -20,7 +19,7 @@ var gameModule = (function() {
 
                 console.log("Clicked: " + x + " , " + y);
 
-                if (tmp < ballR*ballR){
+                if (tmp < ballR * ballR) {
                         scores = scores + (100 - ballR);
                         console.log("Hit ! Your scores:" + scores);
         }
@@ -29,12 +28,12 @@ var gameModule = (function() {
         function start() {
                 scores = 0;
                 document.getElementById("main").addEventListener("click", touchEvent, false);
-                startGame();                
+                startGame( );                
         }
 
         function startGame() {
         var canvas = document.getElementById('game');
-        var ctx = canvas.getContext('2d');
+            ctx = canvas.getContext('2d');
             
             ballX = Math.floor(Math.random() * 600); // 0..300
             ballY = Math.floor(Math.random() * 450);
@@ -45,7 +44,7 @@ var gameModule = (function() {
 
         ctx.fillStyle = colors[counter % length];
         ctx.beginPath();
-        ctx.arc(ballX, ballY, ballR, 0, Math.PI * 2 , true);
+        ctx.arc(ballX, ballY, ballR, 0, Math.PI * 2, true);
         ctx.fill();
 
         if (counter >= 10) {
@@ -53,7 +52,7 @@ var gameModule = (function() {
         } else {
                 timeoutVar = setTimeout(start, 2000);
                 counter = counter + 1;
-            } 
+        } 
         }
 
         function gameOver() {
