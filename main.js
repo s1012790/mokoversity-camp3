@@ -1,11 +1,13 @@
-var gameModule = ( function() {
+var gameModule = (function() {
+
+    "use strict";
 
         var timeoutVar,
-                counter = 0,
-                ballX,
-                ballY,
-                ballR,
-                scores;
+            counter = 0,
+            ballX,
+            ballY,
+            ballR,
+            scores;
 
         var colors = ['#ff0000', '#0000ff', 'yellow'];
         var length = colors.length;
