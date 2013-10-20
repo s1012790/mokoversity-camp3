@@ -72,6 +72,6 @@ var gameModule = (function (document, $) {
         return {
                 start: start
         }
-}(document, $) );
+}(document, $));
 
 gameModule.start();
