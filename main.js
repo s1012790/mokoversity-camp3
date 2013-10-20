@@ -12,7 +12,7 @@ var gameModule = (function() {
 
         function touchEvent(evt) {
                 var x = evt.clientX,
-                        y = evt.clientY;
+                    y = evt.clientY;
 
                 console.log("Clicked: " + x + " , " + y);
 
