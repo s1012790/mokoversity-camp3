@@ -9,9 +9,6 @@ var gameModule = (function () {
             ballY,
             ballR,
             scores,
-            colors = ['#ff0000', '#0000ff'],
-            length = colors.length;
-
 
         function touchEvent(evt) {
                 var x = evt.clientX,
@@ -43,7 +40,7 @@ var gameModule = (function () {
         canvas.width = 640;
         canvas.height = 480;
 
-        ctx.fillStyle = colors[counter % length];
+        ctx.fillStyle = "black";
         ctx.beginPath();
         ctx.arc(ballX, ballY, ballR, 0, Math.PI * 2, true);
         ctx.fill();
