@@ -1,38 +1,63 @@
-var gameModule = (function(){
+var gameModule = (function() {
 
-    var timeoutVar,
-      counter = 0;
+        var timeoutVar,
+                counter = 0,
+                ballX,
+                ballY,
+                ballR;
 
-    function start(){
-	var canvas = document.getElementById('game');
-	var ctx = canvas.getContext('2d');
+        var colors = ['#ff0000', '#0000ff', 'yellow'];
+        var length = colors.length;
 
-	var ballX = Math.floor(Math.random() * 300); //0~300
-	var ballY = Math.floor(Math.random() * 500);
-	var ballR = Math.floor(Math.random() * 100);
 
-    canvas.width=480;
-    canvas.height=320;
+        function touchEvent(evt) {
+                var x = evt.clientX,
+                        y = evt.clientY;
 
-    ctx,fillStyle='black';
-    ctx.beginPath();
-    ctx.arc(ballX,ballY,ballR,0,Math.PI*2,true);
-    ctx.fill();
+                console.log("Clicked: " + x + " , " + y);
 
-    if(counter >= 10){
+                var tmp = (ballX - x) * (ballX - x) + (ballY - y) * (ballY - y);
 
-    } else {
-        timeoutVar = setTimeout(start,1000);
-        counter = counter + 1 ;
-        console.log("Counter:" + counter);
-    }
-    }
+                if (tmp < ballR*ballR)
+                        console.log("Hit ! Good.");
+        }
 
-    return{
-        start : start
-    }
+        function start() {
+                document.getElementById("main").addEventListener("click", touchEvent, false);
+                startGame();                
+        }
+
+        function startGame() {
+        var canvas = document.getElementById('game');
+        var ctx = canvas.getContext('2d');
+            
+            ballX = Math.floor(Math.random() * 600); // 0..300
+            ballY = Math.floor(Math.random() * 450);
+            ballR = Math.floor(Math.random() * 80);
+
+        canvas.width = 640;
+        canvas.height = 480;
+
+        ctx.fillStyle = colors[counter % length];
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, ballR, 0, Math.PI * 2 , true);
+        ctx.fill();
+
+        if (counter >= 10) {
+                gameOver();
+        } else {
+                timeoutVar = setTimeout(start, 2000);
+                counter = counter + 1;
+            } 
+        }
+
+        function gameOver() {
+        console.log("Counter: " + counter);
+        }
+
+        return {
+                start: start
+        }
 }) ();
-
-
 
 gameModule.start();
