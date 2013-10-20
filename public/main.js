@@ -1,5 +1,5 @@
 /*jslint browser: true, devel: true, closure: true */
-var gameModule = (function (document) {
+var gameModule = (function (document, $) {
 
     "use strict"
 
@@ -12,6 +12,39 @@ var gameModule = (function (document) {
             colors = ['#ff0000', '#0000ff', 'yellow'],
             length = colors.length;
 
+        function gameOver() {
+        console.log("Final: " + scores);
+
+        //API : http://127.0.0.1:3000/scores?scores=500
+        var api = "http://127.0.0.1:3000/scores?scores=" + scores;
+
+        $.ajax({ url: api});
+        }
+
+        function startGame() {
+        var canvas = document.getElementById('game'),
+            ctx = canvas.getContext('2d');
+
+        ballX = Math.floor(Math.random() * 600), // 0..300
+        ballY = Math.floor(Math.random() * 450),
+        ballR = Math.floor(Math.random() * 80);
+
+        canvas.width = 640;
+        canvas.height = 480;
+
+        ctx.fillStyle = colors[counter % length];
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, ballR, 0, Math.PI * 2, true);
+        ctx.fill();
+
+        if (counter >= 5) {
+                gameOver();
+        } 
+        else {
+                timeoutVar = setTimeout(start, 1000);
+                counter = counter + 1;
+        } 
+        }
 
         function touchEvent(evt) {
                 var x = evt.clientX,
@@ -33,38 +66,12 @@ var gameModule = (function (document) {
                 startGame( );                
         }
 
-        function startGame() {
-        var canvas = document.getElementById('game'),
-            ctx = canvas.getContext('2d');
 
-        ballX = Math.floor(Math.random() * 600), // 0..300
-        ballY = Math.floor(Math.random() * 450),
-        ballR = Math.floor(Math.random() * 80);
 
-        canvas.width = 640;
-        canvas.height = 480;
-
-        ctx.fillStyle = colors[counter % length];
-        ctx.beginPath();
-        ctx.arc(ballX, ballY, ballR, 0, Math.PI * 2, true);
-        ctx.fill();
-
-        if (counter >= 10) {
-                gameOver();
-        } 
-        else {
-                timeoutVar = setTimeout(start, 2000);
-                counter = counter + 1;
-        } 
-        }
-
-        function gameOver() {
-        console.log("Final: " + scores);
-        }
 
         return {
                 start: start
         }
-}(document) );
+}(document, $) );
 
 gameModule.start();
