@@ -9,7 +9,7 @@ var gameModule = (function () {
             ballY,
             ballR,
             scores,
-            colors = ['#ff0000', '#0000ff', 'yellow'],
+            colors = ['#ff0000', '#0000ff'],
             length = colors.length;
 
 
